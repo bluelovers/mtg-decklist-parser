@@ -2,40 +2,58 @@
   "name": "mtg-decklist-parser",
   "version": "2.0.0",
   "description": "Library for parsing MTG Online & Arena decklists",
-  "main": "dist/index.js",
-  "scripts": {
-    "start": "webpack serve --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/im-sticky/mtg-decklist-parser.git"
-  },
   "keywords": [
     "mtg",
     "magic the gathering",
     "decklist",
     "parser"
   ],
-  "author": "Alex Craig",
-  "license": "MIT",
+  "homepage": "https://github.com/bluelovers/mtg-decklist-parser#readme",
   "bugs": {
-    "url": "https://github.com/im-sticky/mtg-decklist-parser/issues"
+    "url": "https://github.com/bluelovers/mtg-decklist-parser/issues"
   },
-  "homepage": "https://github.com/im-sticky/mtg-decklist-parser#readme",
-  "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "html-webpack-plugin": "^5.3.2",
-    "webpack": "^5.50.0",
-    "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^4.0.0-beta.0",
-    "webpack-merge": "^5.8.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluelovers/mtg-decklist-parser.git"
+  },
+  "license": "MIT",
+  "author": "Alex Craig",
+  "main": "dist/index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "npm:publish": "npm publish",
+    "npm:publish:bump": "yarn run version:bump && npm publish",
+    "preversion": "echo preversion && yarn run test",
+    "version": "echo version",
+    "version:bump": "yarn-tool version",
+    "postversion": "echo postversion",
+    "prepublish": "echo prepublish",
+    "prepublishOnly": "yarn run preversion",
+    "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
+    "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
+    "publish": "echo publish",
+    "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
+    "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
+    "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
+    "postpublish:git:push": "git push --follow-tags",
+    "postpublish:git:tag": "ynpx --quiet @yarn-tool/tag",
+    "postpublishOnly": "echo postpublishOnly",
+    "ncu": "yarn-tool ncu -u",
+    "sort-package-json": "yarn-tool sort",
+    "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
-    "fast-xml-parser": "^3.19.0"
-  }
+    "fast-xml-parser": "^3.19.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@bluelovers/tsconfig": "^1.0.26",
+    "@types/fs-extra": "^9.0.13",
+    "fs-extra": "^10.0.0"
+  },
+  "packageManager": "yarn@^1.22.11"
 }
