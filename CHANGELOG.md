@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.1...mtg-decklist-parser2@2.0.2) (2021-11-20)
+
+
+### 🐛　Bug Fixes
+
+* trim ([e20751d](https://github.com/bluelovers/mtg-decklist-parser/commit/e20751d31fa516ad5aa59190f3c7c49f22d43371))
+
+
+
+
+
 ## 2.0.1 (2021-11-20)
 
 

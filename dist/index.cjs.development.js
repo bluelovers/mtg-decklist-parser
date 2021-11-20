@@ -8,7 +8,7 @@ const _amountRegex = /^\d+/;
 const _collectorRegex = /\d+$/;
 const _setRegex = /(\(|\[)(.+)(\)|\])/;
 function parseString(rawInput) {
-  rawInput.trim();
+  rawInput = rawInput.trim();
   const name = rawInput.replace(_amountRegex, '').replace(_setRegex, '').replace(_collectorRegex, '').trim();
   const amount = rawInput.match(_amountRegex);
   const set = rawInput.match(_setRegex);
