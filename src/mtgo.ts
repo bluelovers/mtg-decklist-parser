@@ -1,36 +1,34 @@
-import parser, { ValidationError } from 'fast-xml-parser';
+import { parse, validate, ValidationError } from 'fast-xml-parser';
 import { CardModel } from './cardModel';
 import { Deck } from './deck';
+import { ICardXmlObject } from './types';
 
 const _commanderAnnotation = '16777728';
 
 export class MTGO extends Deck
 {
-	constructor(xml: string, logError = true)
+	constructor(xml: string | Uint8Array, logError = true)
 	{
 		super();
 
-		xml = xml.trim();
+		xml = xml.toString().trim();
 
-		const output = parser.validate(xml);
+		const output = validate(xml);
 
 		// @ts-ignore
 		this.valid = output === true;
 
 		if (this.valid)
 		{
-			const parsed = parser.parse(xml, {
+			const parsed = parse(xml, {
 				attributeNamePrefix: '',
 				ignoreAttributes: false,
 			}) as {
 				Deck: {
-					Cards: {
+					Cards: (ICardXmlObject & {
 						Annotation?: typeof _commanderAnnotation,
 						Sideboard?: 'true',
-						Quantity: string,
-						Name: string,
-						CatID: string,
-					}[]
+					})[]
 				}
 			};
 
