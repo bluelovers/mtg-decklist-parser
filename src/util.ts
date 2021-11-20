@@ -6,7 +6,7 @@ const _setRegex = /(\(|\[)(.+)(\)|\])/;
 
 export function parseString(rawInput: string): ICard
 {
-	rawInput.trim();
+	rawInput = rawInput.trim();
 
 	const name = rawInput.replace(_amountRegex, '').replace(_setRegex, '').replace(_collectorRegex, '').trim();
 	const amount = rawInput.match(_amountRegex);
