@@ -12,15 +12,9 @@ npm install mtg-decklist-parser --save
 After that import the `Decklist` class from the library. This is where all parsing is done. Just pass your decklist string into the constructor of the class.
 
 ```js
-import {Decklist} from 'mtg-decklist-parser';
+import {Decklist} from 'mtg-decklist-parser2';
 
 let parsed = new Decklist(rawString);
-```
-
-If manually building the library to include in your project, the `Decklist` class will be available in the `MTGParser` global object.
-
-```js
-let parsed = new MTGParser.Decklist(rawString);
 ```
 
 ## API documentation

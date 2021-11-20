@@ -1,5 +1,5 @@
 {
-  "name": "mtg-decklist-parser",
+  "name": "mtg-decklist-parser2",
   "version": "2.0.0",
   "description": "Library for parsing MTG Online & Arena decklists",
   "keywords": [
@@ -19,12 +19,18 @@
   "license": "MIT",
   "author": "Alex Craig",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "directories": {
     "example": "example",
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "pretest": "yarn run build",
+    "test": "tsdx test --passWithNoTests",
+    "build": "tsdx build --target node --name index",
+    "postbuild": "ynpx dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "npm:publish": "npm publish",
     "npm:publish:bump": "yarn run version:bump && npm publish",
     "preversion": "echo preversion && yarn run test",
@@ -51,8 +57,13 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@bluelovers/fast-glob": "^3.0.4",
     "@bluelovers/tsconfig": "^1.0.26",
+    "@types/bluebird": "^3.5.36",
     "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.9",
+    "bluebird": "^3.7.2",
     "fs-extra": "^10.0.0"
   },
   "packageManager": "yarn@^1.22.11"
