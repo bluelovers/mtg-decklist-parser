@@ -1,3 +1,5 @@
+import { CardModel } from './cardModel';
+
 export interface ICard
 {
 	/**
@@ -27,4 +29,24 @@ export interface ICardXmlObject
 	Quantity: string,
 	Name: string,
 	CatID: string,
+}
+
+export interface IDeck
+{
+	/**
+	 * An array of `CardModel` for the main deck.
+	 */
+	deck: CardModel[];
+	/**
+	 * An array of `CardModel` for the sideboard.
+	 */
+	sideboard: CardModel[];
+	/**
+	 * If a companion is specified in the input will be available, otherwise null.
+	 */
+	companion?: CardModel;
+	/**
+	 * If a commander is specified in the input will be available, otherwise null.
+	 */
+	commander?: CardModel;
 }

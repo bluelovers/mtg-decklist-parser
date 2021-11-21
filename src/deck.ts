@@ -1,6 +1,8 @@
 import { CardModel } from './cardModel';
+import { IDeck } from './types';
+import { toDeckListString } from './util';
 
-export abstract class Deck
+export abstract class Deck implements IDeck
 {
 	/**
 	 * If the parsing of the decklist was successful. Note: this does not necessarily mean the input was well formed.
@@ -22,4 +24,10 @@ export abstract class Deck
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
 	commander?: CardModel = null;
+
+	toDeckListString()
+	{
+		return toDeckListString(this);
+	}
+
 }

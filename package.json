@@ -27,8 +27,8 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "yarn run build",
     "test": "tsdx test --passWithNoTests",
+    "posttest": "yarn run build",
     "build": "tsdx build --target node --name index",
     "postbuild": "ynpx dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "npm:publish": "npm publish",

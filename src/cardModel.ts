@@ -1,4 +1,4 @@
-import { parseString } from './util';
+import { parseString, toCardString } from './util';
 import { ICard, ICardXmlObject } from './types';
 
 export class CardModel implements ICard
@@ -34,6 +34,11 @@ export class CardModel implements ICard
 			amount: parseInt(rawInputObject.Quantity),
 			mtgoID: rawInputObject.CatID,
 		};
+	}
+
+	toCardString()
+	{
+		return toCardString(this)
 	}
 
 }

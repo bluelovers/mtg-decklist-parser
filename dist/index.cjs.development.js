@@ -20,6 +20,46 @@ function parseString(rawInput) {
     collectors: collectors ? parseInt(collectors[0]) : undefined
   };
 }
+function toCardString(card) {
+  var _card$set;
+
+  return [card.amount || 1, card.name, (_card$set = card.set) !== null && _card$set !== void 0 && _card$set.length ? `(${card.set})` : undefined, card.collectors].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+}
+function toDeckListString(deck) {
+  var _deck$deck, _deck$sideboard;
+
+  let output = [];
+
+  if (deck.commander) {
+    output.push(`Commander`);
+    output.push(deck.commander.toCardString());
+    output.push('');
+  }
+
+  if (deck.companion) {
+    output.push(`Companion`);
+    output.push(deck.companion.toCardString());
+    output.push('');
+  }
+
+  if ((_deck$deck = deck.deck) !== null && _deck$deck !== void 0 && _deck$deck.length) {
+    output.push(`Deck`);
+    deck.deck.forEach(card => {
+      output.push(card.toCardString());
+    });
+    output.push('');
+  }
+
+  if ((_deck$sideboard = deck.sideboard) !== null && _deck$sideboard !== void 0 && _deck$sideboard.length) {
+    output.push(`Sideboard`);
+    deck.sideboard.forEach(card => {
+      output.push(card.toCardString());
+    });
+    output.push('');
+  }
+
+  return output.join('\n');
+}
 
 class CardModel {
   constructor(rawInput) {
@@ -47,6 +87,10 @@ class CardModel {
       amount: parseInt(rawInputObject.Quantity),
       mtgoID: rawInputObject.CatID
     };
+  }
+
+  toCardString() {
+    return toCardString(this);
   }
 
 }
@@ -77,6 +121,10 @@ class Deck {
     _defineProperty(this, "companion", null);
 
     _defineProperty(this, "commander", null);
+  }
+
+  toDeckListString() {
+    return toDeckListString(this);
   }
 
 }
@@ -190,4 +238,6 @@ exports.MTGO = MTGO;
 exports.autoParse = autoParse;
 exports["default"] = autoParse;
 exports.parseString = parseString;
+exports.toCardString = toCardString;
+exports.toDeckListString = toDeckListString;
 //# sourceMappingURL=index.cjs.development.js.map

@@ -236,6 +236,45 @@ Object {
 }
 `;
 
+exports[`deck example\\BW Starfield.dek 2`] = `
+"Deck
+1 Castle Ardenvale
+1 Castle Locthwain
+4 Demonic Pact
+4 Doom Foretold
+1 Elspeth's Nightmare
+1 Final Payment
+3 Flicker of Fate
+3 Isolated Chapel
+2 Oath of Kaya
+6 Swamp
+3 Shambling Vent
+2 Starfield of Nyx
+4 The Birth of Meletis
+4 Treacherous Blessing
+3 Trial of Ambition
+5 Plains
+4 Godless Shrine
+1 Cling to Dust
+2 Duress
+2 Murderous Rider
+2 Despise
+2 Dead Weight
+
+Sideboard
+1 Underworld Connections
+1 Trial of Ambition
+2 Archon of Sun's Grace
+1 Sorcerous Spyglass
+2 Kaya's Wrath
+2 Fatal Push
+2 Kunoros, Hound of Athreos
+1 Agonizing Remorse
+1 Oath of Kaya
+2 Glare of Heresy
+"
+`;
+
 exports[`deck example\\Deck - Prismari Midrange.txt 1`] = `
 Object {
   "commander": null,
@@ -435,6 +474,40 @@ Object {
   ],
   "valid": true,
 }
+`;
+
+exports[`deck example\\Deck - Prismari Midrange.txt 2`] = `
+"Deck
+2 Alrund's Epiphany
+4 Bonecrusher Giant
+4 Brazen Borrower
+2 Den of the Bugbear
+4 Dragon's Fire
+4 Fabled Passage
+3 Galazeth Prismari
+4 Goldspan Dragon
+2 Hall of Storm Giants
+2 Inferno of the Star Mounts
+7 Island
+2 Magic Missile
+4 Mazemind Tome
+6 Mountain
+2 Mystical Dispute
+2 Prismari Command
+4 Riverglide Pathway
+2 Saw It Coming
+
+Sideboard
+3 Burning Hands
+1 Disdainful Stroke
+2 Iymrith, Desert Doom
+1 Mystical Dispute
+1 Negate
+2 Phoenix of Ash
+3 Redcap Melee
+1 Shadowspear
+1 Test of Talents
+"
 `;
 
 exports[`deck example\\Deck - Sharuum.dek 1`] = `
@@ -1147,6 +1220,113 @@ Object {
 }
 `;
 
+exports[`deck example\\Deck - Sharuum.dek 2`] = `
+"Commander
+1 Sharuum the Hegemon
+
+Deck
+1 Ancient Den
+1 Arcane Denial
+1 Arcane Sanctum
+1 Arcane Signet
+1 Ashiok, Dream Render
+1 Azorius Signet
+1 Barren Moor
+1 Basalt Monolith
+1 Blood Artist
+1 Bojuka Bog
+1 Bolas's Citadel
+1 Buried Ruin
+1 Caves of Koilos
+1 Celestial Colonnade
+1 Chromatic Lantern
+1 City of Brass
+1 Command Tower
+1 Swamp
+1 Creeping Tar Pit
+1 Cyclonic Rift
+1 Darksteel Citadel
+1 Darksteel Forge
+1 Deadly Rollick
+1 Demonic Consultation
+1 Demonic Tutor
+1 Dimir Signet
+1 Disciple of the Vault
+1 Dispatch
+1 Dovin's Veto
+1 Dramatic Reversal
+1 Dread Statuary
+1 Duplicant
+1 Etherium Sculptor
+1 Ethersworn Canonist
+1 Everflowing Chalice
+1 Exsanguinate
+1 Fabled Passage
+1 Fact or Fiction
+1 Feed the Swarm
+1 Fierce Guardianship
+1 Foundry Inspector
+1 Fracture
+1 Goldmire Bridge
+1 Inkshield
+1 Plains
+1 Isochron Scepter
+1 Jace, the Mind Sculptor
+1 Kuldotha Forgemaster
+1 Lonely Sandbar
+1 Mimic Vat
+1 Mind Stone
+1 Mishra's Factory
+1 Mistvault Bridge
+1 Myr Battlesphere
+1 Mystic Sanctuary
+1 Narset, Parter of Veils
+1 Necropotence
+1 Nevinyrral's Disk
+1 Orzhov Signet
+1 Path to Exile
+1 Phyrexian Metamorph
+1 Island
+1 Razortide Bridge
+1 Reliquary Tower
+1 Rings of Brighthearth
+1 Scavenger Grounds
+1 Sculpting Steel
+1 Seat of the Synod
+1 Secluded Steppe
+1 Shambling Vent
+1 Skullclamp
+1 Sol Ring
+1 Stoic Rebuttal
+1 Sunken Hollow
+1 Sunken Ruins
+1 Counterspell
+1 Sword of the Meek
+1 Swords to Plowshares
+1 Talisman of Dominance
+1 Talisman of Hierarchy
+1 Temple of Deceit
+1 Temple of Enlightenment
+1 Temple of Silence
+1 Thassa's Oracle
+1 Thirst for Knowledge
+1 Thopter Assembly
+1 Thopter Foundry
+1 Thoughtcast
+1 Time Sieve
+1 Ugin, the Ineffable
+1 Underground River
+1 Urza's Mine
+1 Urza's Power Plant
+1 Urza's Tower
+1 Vault of Whispers
+1 Vindicate
+1 Voltaic Key
+1 Windfall
+1 Wrath of God
+"
+`;
+
 exports[`deck example\\doom - companion.txt 1`] = `
 Object {
   "commander": null,
@@ -1403,6 +1583,50 @@ Object {
 }
 `;
 
+exports[`deck example\\doom - companion.txt 2`] = `
+"Companion
+1 Yorion, Sky Nomad (IKO) 232
+
+Deck
+4 Doom Foretold (ELD) 187
+5 Swamp (ELD) 261
+5 Plains (ELD) 253
+3 Skyclave Apparition (ZNR) 39
+4 Lithoform Blight (ZNR) 109
+4 Oath of Kaya (WAR) 209
+4 Treacherous Blessing (THB) 117
+3 Yorion, Sky Nomad (IKO) 232
+4 Trial of Ambition (AKR) 130
+3 Thoughtseize (AKR) 127
+3 Castle Ardenvale (ELD) 238
+2 Extinction Event (IKO) 88
+2 Skyclave Cleric (ZNR) 40
+4 Demonic Pact (AKR) 99
+2 Vanishing Verse (STX) 244
+4 The Birth of Meletis (THB) 5
+4 Isolated Chapel (DAR) 241
+4 Godless Shrine (RNA) 248
+4 Brightclimb Pathway (ZNR) 259
+4 Fabled Passage (M21) 246
+2 Emeria's Call (ZNR) 12
+2 Indatha Triome (IKO) 248
+3 Acquisitions Expert (ZNR) 89
+1 Elderfang Disciple (KHM) 93
+
+Sideboard
+1 Thoughtseize (AKR) 127
+2 Fatal Push (KLR) 84
+2 Soul-Guide Lantern (THB) 237
+1 Mazemind Tome (M21) 232
+1 Yorion, Sky Nomad (IKO) 232
+1 Soul-Guide Lantern (THB) 237
+3 Mazemind Tome (M21) 232
+2 Doomskar (KHM) 9
+1 Skyclave Apparition (ZNR) 39
+1 Elderfang Disciple (KHM) 93
+"
+`;
+
 exports[`deck test\\deck\\whiteline.txt 1`] = `
 Object {
   "commander": null,
@@ -1573,4 +1797,32 @@ Object {
   "sideboard": Array [],
   "valid": true,
 }
+`;
+
+exports[`deck test\\deck\\whiteline.txt 2`] = `
+"Deck
+2 Trelasarra, Moon Dancer (AFR) 236
+1 Righteous Valkyrie (KHM) 24
+2 Prosperous Innkeeper (AFR) 200
+2 Story Seeker (KHM) 34
+9 Forest (STX) 374
+3 Celestial Unicorn (AFR) 5
+3 Kor Celebrant (ZNR) 22
+2 Cleric Class (AFR) 6
+1 Valkyrie Harbinger (KHM) 374
+1 Icingdeath, Frost Tyrant (AFR) 20
+2 Lurking Roper (AFR) 194
+2 You Meet in a Tavern (AFR) 215
+1 Inscription of Abundance (ZNR) 186
+1 Drizzt Do'Urden (AFR) 220
+1 Branchloft Pathway (ZNR) 258
+4 Arctic Treeline (KHM) 249
+10 Plains (STX) 367
+2 Fortifying Draught (STX) 132
+2 Minimus Containment (AFR) 24
+3 Devouring Tendrils (STX) 126
+2 Pillardrop Rescuer (STX) 23
+1 Accomplished Alchemist (STX) 119
+3 Revitalize (KHM) 23
+"
 `;

@@ -29,6 +29,24 @@ export interface ICardXmlObject {
 	Name: string;
 	CatID: string;
 }
+export interface IDeck {
+	/**
+	 * An array of `CardModel` for the main deck.
+	 */
+	deck: CardModel[];
+	/**
+	 * An array of `CardModel` for the sideboard.
+	 */
+	sideboard: CardModel[];
+	/**
+	 * If a companion is specified in the input will be available, otherwise null.
+	 */
+	companion?: CardModel;
+	/**
+	 * If a commander is specified in the input will be available, otherwise null.
+	 */
+	commander?: CardModel;
+}
 export declare class CardModel implements ICard {
 	name: string;
 	amount: number;
@@ -38,8 +56,9 @@ export declare class CardModel implements ICard {
 	constructor(rawInput: string | ICardXmlObject);
 	protected parseString(rawInput: string): ICard;
 	protected parseObject(rawInputObject: ICardXmlObject): ICard;
+	toCardString(): string;
 }
-declare abstract class Deck {
+declare abstract class Deck implements IDeck {
 	/**
 	 * If the parsing of the decklist was successful. Note: this does not necessarily mean the input was well formed.
 	 */
@@ -60,6 +79,7 @@ declare abstract class Deck {
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
 	commander?: CardModel;
+	toDeckListString(): string;
 }
 export declare class Decklist extends Deck {
 	constructor(rawInput: string | Uint8Array);
@@ -68,6 +88,8 @@ export declare class MTGO extends Deck {
 	constructor(xml: string | Uint8Array, logError?: boolean);
 }
 export declare function parseString(rawInput: string): ICard;
+export declare function toCardString(card: ICard): string;
+export declare function toDeckListString(deck: IDeck): string;
 export declare function autoParse(rawInput: string | Uint8Array): MTGO | Decklist;
 export default autoParse;
 

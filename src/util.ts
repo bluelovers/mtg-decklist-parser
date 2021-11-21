@@ -1,4 +1,4 @@
-import { ICard } from './types';
+import { ICard, IDeck } from './types';
 
 const _amountRegex = /^\d+/;
 const _collectorRegex = /\d+$/;
@@ -22,3 +22,53 @@ export function parseString(rawInput: string): ICard
 	}
 }
 
+export function toCardString(card: ICard)
+{
+	return [
+		card.amount || 1,
+		card.name,
+		card.set?.length ? `(${card.set})` : undefined,
+		card.collectors,
+	].filter(s => s ?? false).join(' ')
+}
+
+export function toDeckListString(deck: IDeck)
+{
+	let output: string[] = [];
+
+	if (deck.commander)
+	{
+		output.push(`Commander`);
+		output.push(deck.commander.toCardString());
+		output.push('');
+	}
+
+	if (deck.companion)
+	{
+		output.push(`Companion`);
+		output.push(deck.companion.toCardString());
+		output.push('');
+	}
+
+	if (deck.deck?.length)
+	{
+		output.push(`Deck`);
+		deck.deck.forEach(card =>
+		{
+			output.push(card.toCardString());
+		});
+		output.push('');
+	}
+
+	if (deck.sideboard?.length)
+	{
+		output.push(`Sideboard`);
+		deck.sideboard.forEach(card =>
+		{
+			output.push(card.toCardString());
+		});
+		output.push('');
+	}
+
+	return output.join('\n');
+}

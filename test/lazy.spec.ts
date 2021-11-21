@@ -29,6 +29,8 @@ describe(`deck`, () =>
 					valid: true,
 				});
 
+				expect(actual.toDeckListString()).toMatchSnapshot();
+
 			});
 
 		})
