@@ -1,11 +1,7 @@
 import { CardModel } from './cardModel';
 
-export interface ICard
+export interface ICardWithoutAmount
 {
-	/**
-	 * The name of the card specified within the deck.
-	 */
-	amount: number,
 	/**
 	 * The amount of the card specified within the deck.
 	 */
@@ -22,6 +18,14 @@ export interface ICard
 	 * The ID of the card specific to MTG Online.
 	 */
 	mtgoID?: string,
+}
+
+export interface ICard extends ICardWithoutAmount
+{
+	/**
+	 * The name of the card specified within the deck.
+	 */
+	amount: number,
 }
 
 export interface ICardXmlObject

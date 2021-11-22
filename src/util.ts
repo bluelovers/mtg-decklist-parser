@@ -1,4 +1,4 @@
-import { ICard, IDeck } from './types';
+import { ICard, ICardWithoutAmount, IDeck } from './types';
 
 const _amountRegex = /^\d+/;
 const _collectorRegex = /\d+$/;
@@ -38,7 +38,7 @@ export function toCardString(card: ICard)
  * NAME (SET) COLLECTORS
  * @example Trelasarra, Moon Dancer (AFR) 236
  */
-export function toCardStringWithoutAmount(card: ICard)
+export function toCardStringWithoutAmount(card: ICardWithoutAmount)
 {
 	return [
 		card.name,
