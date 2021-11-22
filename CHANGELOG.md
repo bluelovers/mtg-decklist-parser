@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.5...mtg-decklist-parser2@2.0.6) (2021-11-22)
+
+
+### 📦　Code Refactoring
+
+* type splitting ([f53c220](https://github.com/bluelovers/mtg-decklist-parser/commit/f53c22005d2193d2b4a3ad08274c76bb3040f45f))
+
+
+
+
+
 ## [2.0.5](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.4...mtg-decklist-parser2@2.0.5) (2021-11-22)
 
 
