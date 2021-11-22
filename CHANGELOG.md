@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.4...mtg-decklist-parser2@2.0.5) (2021-11-22)
+
+
+### ✨　Features
+
+* add `toCardStringWithoutAmount` ([59e4f2f](https://github.com/bluelovers/mtg-decklist-parser/commit/59e4f2f69142214c675b6d634cc4f61a78633f3d))
+
+
+
+
+
 ## [2.0.4](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.2...mtg-decklist-parser2@2.0.4) (2021-11-21)
 
 
