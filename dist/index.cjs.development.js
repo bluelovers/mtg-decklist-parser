@@ -21,9 +21,12 @@ function parseString(rawInput) {
   };
 }
 function toCardString(card) {
+  return [card.amount || 1, toCardStringWithoutAmount(card)].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+}
+function toCardStringWithoutAmount(card) {
   var _card$set;
 
-  return [card.amount || 1, card.name, (_card$set = card.set) !== null && _card$set !== void 0 && _card$set.length ? `(${card.set})` : undefined, card.collectors].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+  return [card.name, (_card$set = card.set) !== null && _card$set !== void 0 && _card$set.length ? `(${card.set})` : undefined, card.collectors].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
 }
 function toDeckListString(deck) {
   var _deck$deck, _deck$sideboard;
@@ -239,5 +242,6 @@ exports.autoParse = autoParse;
 exports["default"] = autoParse;
 exports.parseString = parseString;
 exports.toCardString = toCardString;
+exports.toCardStringWithoutAmount = toCardStringWithoutAmount;
 exports.toDeckListString = toDeckListString;
 //# sourceMappingURL=index.cjs.development.js.map

@@ -17,9 +17,12 @@ function parseString(rawInput) {
   };
 }
 function toCardString(card) {
+  return [card.amount || 1, toCardStringWithoutAmount(card)].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+}
+function toCardStringWithoutAmount(card) {
   var _card$set;
 
-  return [card.amount || 1, card.name, (_card$set = card.set) !== null && _card$set !== void 0 && _card$set.length ? `(${card.set})` : undefined, card.collectors].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+  return [card.name, (_card$set = card.set) !== null && _card$set !== void 0 && _card$set.length ? `(${card.set})` : undefined, card.collectors].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
 }
 function toDeckListString(deck) {
   var _deck$deck, _deck$sideboard;
@@ -228,5 +231,5 @@ function autoParse(rawInput) {
   return deck.valid ? deck : new Decklist(rawInput);
 }
 
-export { CardModel, Decklist, MTGO, autoParse, autoParse as default, parseString, toCardString, toDeckListString };
+export { CardModel, Decklist, MTGO, autoParse, autoParse as default, parseString, toCardString, toCardStringWithoutAmount, toDeckListString };
 //# sourceMappingURL=index.esm.js.map

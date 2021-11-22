@@ -22,10 +22,25 @@ export function parseString(rawInput: string): ICard
 	}
 }
 
+/**
+ * AMOUNT NAME (SET) COLLECTORS
+ * @example 2 Trelasarra, Moon Dancer (AFR) 236
+ */
 export function toCardString(card: ICard)
 {
 	return [
 		card.amount || 1,
+		toCardStringWithoutAmount(card),
+	].filter(s => s ?? false).join(' ')
+}
+
+/**
+ * NAME (SET) COLLECTORS
+ * @example Trelasarra, Moon Dancer (AFR) 236
+ */
+export function toCardStringWithoutAmount(card: ICard)
+{
+	return [
 		card.name,
 		card.set?.length ? `(${card.set})` : undefined,
 		card.collectors,

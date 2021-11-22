@@ -1,7 +1,7 @@
 import { Decklist } from './decklist';
 import { MTGO } from './mtgo';
 export { CardModel } from './cardModel';
-export { parseString, toCardString, toDeckListString } from './util';
+export { parseString, toCardString, toDeckListString, toCardStringWithoutAmount } from './util';
 
 export { Decklist, MTGO };
 
