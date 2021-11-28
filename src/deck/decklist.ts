@@ -1,4 +1,4 @@
-import { CardModel } from './cardModel';
+import { CardModel } from '../cardModel';
 import { Deck } from './deck';
 
 const enum SECTIONS

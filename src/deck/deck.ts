@@ -1,9 +1,14 @@
-import { CardModel } from './cardModel';
-import { IDeck } from './types';
-import { toDeckListString } from './util';
+import { CardModel } from '../cardModel';
+import { IDeck } from '../types';
+import { toDeckListString } from '../util';
 
 export abstract class Deck implements IDeck
 {
+	/**
+	 * deck name
+	 */
+	name?: string;
+
 	/**
 	 * If the parsing of the decklist was successful. Note: this does not necessarily mean the input was well formed.
 	 */

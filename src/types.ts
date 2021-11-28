@@ -38,6 +38,11 @@ export interface ICardXmlObject
 export interface IDeck
 {
 	/**
+	 * deck name
+	 */
+	name?: string;
+
+	/**
 	 * An array of `CardModel` for the main deck.
 	 */
 	deck: CardModel[];

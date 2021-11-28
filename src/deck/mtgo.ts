@@ -1,7 +1,7 @@
 import { parse, validate, ValidationError } from 'fast-xml-parser';
-import { CardModel } from './cardModel';
+import { CardModel } from '../cardModel';
 import { Deck } from './deck';
-import { ICardXmlObject } from './types';
+import { ICardXmlObject } from '../types';
 
 const _commanderAnnotation = '16777728';
 

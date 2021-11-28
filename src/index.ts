@@ -1,5 +1,5 @@
-import { Decklist } from './decklist';
-import { MTGO } from './mtgo';
+import { Decklist } from './deck/decklist';
+import { MTGO } from './deck/mtgo';
 export { CardModel } from './cardModel';
 export { parseString, toCardString, toDeckListString, toCardStringWithoutAmount } from './util';
 
