@@ -23,7 +23,7 @@ export class Decklist extends Deck
 		super();
 
 		let splitData = rawInput.toString().trim().split(_newlineRegex);
-		let currentSection = 0;
+		let currentSection = SECTIONS.unstarted;
 
 		try
 		{
