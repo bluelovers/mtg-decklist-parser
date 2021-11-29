@@ -37,11 +37,19 @@ export class CardModel implements ICard
 			collectors = parseInt(collectors)
 		}
 
+		// @ts-ignore
+		let amount: number = parseInt(rawInputObject.Quantity ?? rawInputObject.amount) | 0;
+
+		if (!amount || !Number.isInteger(amount) || amount < 0)
+		{
+			amount = void 0;
+		}
+
 		return {
 			// @ts-ignore
 			name: rawInputObject.Name ?? rawInputObject.name,
 			// @ts-ignore
-			amount: parseInt(rawInputObject.Quantity ?? rawInputObject.amount),
+			amount,
 			// @ts-ignore
 			mtgoID: rawInputObject.CatID ?? rawInputObject.mtgoID,
 			// @ts-ignore

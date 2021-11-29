@@ -97,7 +97,7 @@ declare abstract class Deck implements IDeck {
 }
 export declare class Decklist extends Deck {
 	readonly [SymDecklistType]: EnumDecklistType.mtga;
-	constructor(rawInput: string | Uint8Array);
+	constructor(rawInput: string | Uint8Array, logError?: boolean);
 }
 export declare class MTGO extends Deck {
 	readonly [SymDecklistType]: EnumDecklistType.mtgo;

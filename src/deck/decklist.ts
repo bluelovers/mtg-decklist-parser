@@ -21,7 +21,7 @@ export class Decklist extends Deck
 {
 	readonly [SymDecklistType] = EnumDecklistType.mtga as const;
 
-	constructor(rawInput: string | Uint8Array)
+	constructor(rawInput: string | Uint8Array, logError = true)
 	{
 		super();
 
@@ -87,7 +87,10 @@ export class Decklist extends Deck
 		{
 			// @ts-ignore
 			this.valid = false;
-			console.error(error);
+			if (logError)
+			{
+				console.error(error);
+			}
 		}
 	}
 }

@@ -106,7 +106,7 @@ class CardModel {
   }
 
   parseObject(rawInputObject) {
-    var _rawInputObject$Name, _rawInputObject$Quant, _rawInputObject$CatID;
+    var _rawInputObject$Quant, _rawInputObject$Name, _rawInputObject$CatID;
 
     let collectors = rawInputObject.collectors;
 
@@ -114,9 +114,15 @@ class CardModel {
       collectors = parseInt(collectors);
     }
 
+    let amount = parseInt((_rawInputObject$Quant = rawInputObject.Quantity) !== null && _rawInputObject$Quant !== void 0 ? _rawInputObject$Quant : rawInputObject.amount) | 0;
+
+    if (!amount || !Number.isInteger(amount) || amount < 0) {
+      amount = void 0;
+    }
+
     return {
       name: (_rawInputObject$Name = rawInputObject.Name) !== null && _rawInputObject$Name !== void 0 ? _rawInputObject$Name : rawInputObject.name,
-      amount: parseInt((_rawInputObject$Quant = rawInputObject.Quantity) !== null && _rawInputObject$Quant !== void 0 ? _rawInputObject$Quant : rawInputObject.amount),
+      amount,
       mtgoID: (_rawInputObject$CatID = rawInputObject.CatID) !== null && _rawInputObject$CatID !== void 0 ? _rawInputObject$CatID : rawInputObject.mtgoID,
       set: rawInputObject.set,
       collectors
@@ -171,7 +177,7 @@ const _sideboardRegex = /^sideboard$/i;
 const _commanderRegex = /^commander$/i;
 const _companionRegex = /^companion$/i;
 class Decklist extends Deck {
-  constructor(rawInput) {
+  constructor(rawInput, logError = true) {
     super();
 
     _defineProperty(this, SymDecklistType, "mtga");
@@ -222,7 +228,10 @@ class Decklist extends Deck {
       this.valid = true;
     } catch (error) {
       this.valid = false;
-      console.error(error);
+
+      if (logError) {
+        console.error(error);
+      }
     }
   }
 
@@ -299,13 +308,13 @@ function autoParse(rawInput) {
     return deck;
   }
 
-  deck = new Decklist(rawInput);
+  deck = new Decklist(rawInput, false);
 
   if (deck.valid) {
     return deck;
   }
 
-  let deck3 = new MtgifyDecklist(rawInput, false);
+  let deck3 = new MtgifyDecklist(rawInput);
 
   if (deck3.valid) {
     return deck3;

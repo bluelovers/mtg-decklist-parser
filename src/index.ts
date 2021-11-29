@@ -17,14 +17,14 @@ export function autoParse(rawInput: string | Uint8Array): MTGO | Decklist | Mtgi
 	}
 
 	// @ts-ignore
-	deck = new Decklist(rawInput);
+	deck = new Decklist(rawInput, false);
 
 	if (deck.valid)
 	{
 		return deck as any as Decklist
 	}
 
-	let deck3 = new MtgifyDecklist(rawInput, false);
+	let deck3 = new MtgifyDecklist(rawInput);
 
 	if (deck3.valid)
 	{
