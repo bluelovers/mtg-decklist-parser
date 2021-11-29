@@ -105,7 +105,7 @@ export declare class MTGO extends Deck {
 }
 export declare class MtgifyDecklist extends Deck {
 	readonly [SymDecklistType]: EnumDecklistType.mtgify;
-	constructor(rawInput: string | Uint8Array);
+	constructor(rawInput: string | Uint8Array, logError?: boolean);
 }
 export declare function parseString(rawInput: string): ICard;
 /**

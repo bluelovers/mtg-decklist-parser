@@ -108,12 +108,18 @@ class CardModel {
   parseObject(rawInputObject) {
     var _rawInputObject$Name, _rawInputObject$Quant, _rawInputObject$CatID;
 
+    let collectors = rawInputObject.collectors;
+
+    if (typeof collectors === 'string') {
+      collectors = parseInt(collectors);
+    }
+
     return {
       name: (_rawInputObject$Name = rawInputObject.Name) !== null && _rawInputObject$Name !== void 0 ? _rawInputObject$Name : rawInputObject.name,
       amount: parseInt((_rawInputObject$Quant = rawInputObject.Quantity) !== null && _rawInputObject$Quant !== void 0 ? _rawInputObject$Quant : rawInputObject.amount),
       mtgoID: (_rawInputObject$CatID = rawInputObject.CatID) !== null && _rawInputObject$CatID !== void 0 ? _rawInputObject$CatID : rawInputObject.mtgoID,
       set: rawInputObject.set,
-      collectors: rawInputObject.collectors
+      collectors
     };
   }
 
@@ -255,7 +261,7 @@ class MTGO extends Deck {
 }
 
 class MtgifyDecklist extends Deck {
-  constructor(rawInput) {
+  constructor(rawInput, logError = true) {
     super();
 
     _defineProperty(this, SymDecklistType, "mtgify");
@@ -277,7 +283,10 @@ class MtgifyDecklist extends Deck {
       this.valid = this.deck.length > 0;
     } catch (error) {
       this.valid = false;
-      console.error(error);
+
+      if (logError) {
+        console.error(error);
+      }
     }
   }
 
@@ -296,7 +305,7 @@ function autoParse(rawInput) {
     return deck;
   }
 
-  let deck3 = new MtgifyDecklist(rawInput);
+  let deck3 = new MtgifyDecklist(rawInput, false);
 
   if (deck3.valid) {
     return deck3;

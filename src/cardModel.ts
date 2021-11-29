@@ -29,6 +29,14 @@ export class CardModel implements ICard
 
 	protected parseObject<T extends ICardXmlObject | ICard>(rawInputObject: T): ICard
 	{
+		// @ts-ignore
+		let collectors = rawInputObject.collectors;
+
+		if (typeof collectors === 'string')
+		{
+			collectors = parseInt(collectors)
+		}
+
 		return {
 			// @ts-ignore
 			name: rawInputObject.Name ?? rawInputObject.name,
@@ -39,7 +47,7 @@ export class CardModel implements ICard
 			// @ts-ignore
 			set: rawInputObject.set,
 			// @ts-ignore
-			collectors: rawInputObject.collectors,
+			collectors,
 		};
 	}
 

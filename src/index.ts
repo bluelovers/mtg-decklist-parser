@@ -24,7 +24,7 @@ export function autoParse(rawInput: string | Uint8Array): MTGO | Decklist | Mtgi
 		return deck as any as Decklist
 	}
 
-	let deck3 = new MtgifyDecklist(rawInput);
+	let deck3 = new MtgifyDecklist(rawInput, false);
 
 	if (deck3.valid)
 	{
