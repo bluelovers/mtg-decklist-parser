@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.8](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.7...mtg-decklist-parser2@2.0.8) (2021-11-29)
+
+
+### ✨　Features
+
+* convert collectors to number ([5fe988e](https://github.com/bluelovers/mtg-decklist-parser/commit/5fe988e2794607cb8123d0f5a83fc012e0c157ad))
+
+
+
+
+
 ## [2.0.7](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.6...mtg-decklist-parser2@2.0.7) (2021-11-29)
 
 
