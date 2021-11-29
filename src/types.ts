@@ -59,3 +59,12 @@ export interface IDeck
 	 */
 	commander?: CardModel;
 }
+
+export const SymDecklistType = Symbol.for(`DecklistType`)
+
+export const enum EnumDecklistType
+{
+	mtgo = 'mtgo',
+	mtga = 'mtga',
+	mtgify = 'mtgify',
+}

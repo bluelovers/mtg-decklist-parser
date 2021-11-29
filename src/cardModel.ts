@@ -9,7 +9,7 @@ export class CardModel implements ICard
 	collectors?: number;
 	mtgoID?: string;
 
-	constructor(rawInput: string | ICardXmlObject)
+	constructor(rawInput: string | ICardXmlObject | ICard)
 	{
 		const { amount, name, set, collectors, mtgoID } = typeof rawInput === 'string' ?
 			this.parseString(rawInput) :
@@ -27,12 +27,19 @@ export class CardModel implements ICard
 		return parseString(rawInput)
 	}
 
-	protected parseObject(rawInputObject: ICardXmlObject): ICard
+	protected parseObject<T extends ICardXmlObject | ICard>(rawInputObject: T): ICard
 	{
 		return {
-			name: rawInputObject.Name,
-			amount: parseInt(rawInputObject.Quantity),
-			mtgoID: rawInputObject.CatID,
+			// @ts-ignore
+			name: rawInputObject.Name ?? rawInputObject.name,
+			// @ts-ignore
+			amount: parseInt(rawInputObject.Quantity ?? rawInputObject.amount),
+			// @ts-ignore
+			mtgoID: rawInputObject.CatID ?? rawInputObject.mtgoID,
+			// @ts-ignore
+			set: rawInputObject.set,
+			// @ts-ignore
+			collectors: rawInputObject.collectors,
 		};
 	}
 

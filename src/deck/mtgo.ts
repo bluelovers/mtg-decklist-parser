@@ -1,12 +1,14 @@
 import { parse, validate, ValidationError } from 'fast-xml-parser';
 import { CardModel } from '../cardModel';
 import { Deck } from './deck';
-import { ICardXmlObject } from '../types';
+import { EnumDecklistType, ICardXmlObject, SymDecklistType } from '../types';
 
 const _commanderAnnotation = '16777728';
 
 export class MTGO extends Deck
 {
+	readonly [SymDecklistType] = EnumDecklistType.mtgo as const;
+
 	constructor(xml: string | Uint8Array, logError = true)
 	{
 		super();

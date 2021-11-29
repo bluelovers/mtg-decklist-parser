@@ -1,17 +1,17 @@
-import FastGlob from '@bluelovers/fast-glob';
 import { join, posix, relative } from 'path';
+import FastGlob from '@bluelovers/fast-glob';
 import { readFile } from 'fs-extra';
 import autoParse from '../src/index';
 import { __root } from './__root';
+import { EnumDecklistType, SymDecklistType } from '../src/types';
 
-describe(`deck`, () =>
+describe(`deck:mtgify`, () =>
 {
 
 	FastGlob.sync<string>([
-			'../example/*.{dek,txt}',
-			'./deck/*.{dek,txt}',
+			'*.{dec,txt}',
 		], {
-			cwd: join(__root, 'test'),
+			cwd: join(__root, 'test', 'deck', 'mtgify'),
 			absolute: true,
 		})
 		.forEach(file =>
@@ -26,13 +26,12 @@ describe(`deck`, () =>
 
 				expect(actual).toMatchSnapshot({
 					valid: true,
+					[SymDecklistType]: EnumDecklistType.mtgify,
 				});
-
-				expect(actual.toDeckListString()).toMatchSnapshot();
 
 			});
 
 		})
 	;
 
-})
+});

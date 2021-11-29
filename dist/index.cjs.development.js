@@ -2,23 +2,44 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+var crlfNormalize = require('crlf-normalize');
 var fastXmlParser = require('fast-xml-parser');
 
-const _amountRegex = /^\d+/;
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 const _collectorRegex = /\d+$/;
 const _setRegex = /(\(|\[)(.+)(\)|\])/;
 function parseString(rawInput) {
   rawInput = rawInput.trim();
-  const name = rawInput.replace(_amountRegex, '').replace(_setRegex, '').replace(_collectorRegex, '').trim();
-  const amount = rawInput.match(_amountRegex);
-  const set = rawInput.match(_setRegex);
-  const collectors = rawInput.match(_collectorRegex);
-  return {
-    name,
-    amount: amount ? parseInt(amount[0]) : undefined,
-    set: set ? set[2] : undefined,
-    collectors: collectors ? parseInt(collectors[0]) : undefined
-  };
+  let m_amount = rawInput.match(/^(\d+)x?\s+/);
+
+  if (m_amount) {
+    const amount = parseInt(m_amount[1]);
+    const name = rawInput.slice(m_amount[0].length).replace(_setRegex, '').replace(_collectorRegex, '').trim();
+    const set = rawInput.match(_setRegex);
+    const collectors = rawInput.match(_collectorRegex);
+    return {
+      name,
+      amount,
+      set: set ? set[2] : undefined,
+      collectors: collectors ? parseInt(collectors[0]) : undefined
+    };
+  }
+
+  throw new SyntaxError(`Invalid format: ${rawInput}`);
 }
 function toCardString(card) {
   return [card.amount || 1, toCardStringWithoutAmount(card)].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
@@ -85,10 +106,14 @@ class CardModel {
   }
 
   parseObject(rawInputObject) {
+    var _rawInputObject$Name, _rawInputObject$Quant, _rawInputObject$CatID;
+
     return {
-      name: rawInputObject.Name,
-      amount: parseInt(rawInputObject.Quantity),
-      mtgoID: rawInputObject.CatID
+      name: (_rawInputObject$Name = rawInputObject.Name) !== null && _rawInputObject$Name !== void 0 ? _rawInputObject$Name : rawInputObject.name,
+      amount: parseInt((_rawInputObject$Quant = rawInputObject.Quantity) !== null && _rawInputObject$Quant !== void 0 ? _rawInputObject$Quant : rawInputObject.amount),
+      mtgoID: (_rawInputObject$CatID = rawInputObject.CatID) !== null && _rawInputObject$CatID !== void 0 ? _rawInputObject$CatID : rawInputObject.mtgoID,
+      set: rawInputObject.set,
+      collectors: rawInputObject.collectors
     };
   }
 
@@ -96,21 +121,6 @@ class CardModel {
     return toCardString(this);
   }
 
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
 }
 
 class Deck {
@@ -132,6 +142,15 @@ class Deck {
 
 }
 
+const SymDecklistType = /*#__PURE__*/Symbol.for(`DecklistType`);
+var EnumDecklistType;
+
+(function (EnumDecklistType) {
+  EnumDecklistType["mtgo"] = "mtgo";
+  EnumDecklistType["mtga"] = "mtga";
+  EnumDecklistType["mtgify"] = "mtgify";
+})(EnumDecklistType || (EnumDecklistType = {}));
+
 var SECTIONS;
 
 (function (SECTIONS) {
@@ -145,11 +164,13 @@ const _deckRegex = /^deck$/i;
 const _sideboardRegex = /^sideboard$/i;
 const _commanderRegex = /^commander$/i;
 const _companionRegex = /^companion$/i;
-const _newlineRegex = /\n/g;
 class Decklist extends Deck {
   constructor(rawInput) {
     super();
-    let splitData = rawInput.toString().trim().split(_newlineRegex);
+
+    _defineProperty(this, SymDecklistType, "mtga");
+
+    let splitData = crlfNormalize.lineSplit(rawInput.toString().trim());
     let currentSection = 0;
 
     try {
@@ -205,6 +226,9 @@ const _commanderAnnotation = '16777728';
 class MTGO extends Deck {
   constructor(xml, logError = true) {
     super();
+
+    _defineProperty(this, SymDecklistType, "mtgo");
+
     xml = xml.toString().trim();
     const output = fastXmlParser.validate(xml);
     this.valid = output === true;
@@ -230,14 +254,61 @@ class MTGO extends Deck {
 
 }
 
+class MtgifyDecklist extends Deck {
+  constructor(rawInput) {
+    super();
+
+    _defineProperty(this, SymDecklistType, "mtgify");
+
+    let splitData = crlfNormalize.lineSplit(rawInput.toString().trim());
+
+    try {
+      splitData.forEach(line => {
+        var _m$;
+
+        line = line.trim();
+
+        let _m = line.match(/^(\d+)x\s+(.+)$/);
+
+        if (_m !== null && _m !== void 0 && (_m$ = _m[1]) !== null && _m$ !== void 0 && _m$.length) {
+          this.deck.push(new CardModel(line));
+        }
+      });
+      this.valid = this.deck.length > 0;
+    } catch (error) {
+      this.valid = false;
+      console.error(error);
+    }
+  }
+
+}
+
 function autoParse(rawInput) {
-  const deck = new MTGO(rawInput, false);
-  return deck.valid ? deck : new Decklist(rawInput);
+  let deck = new MTGO(rawInput, false);
+
+  if (deck.valid) {
+    return deck;
+  }
+
+  deck = new Decklist(rawInput);
+
+  if (deck.valid) {
+    return deck;
+  }
+
+  let deck3 = new MtgifyDecklist(rawInput);
+
+  if (deck3.valid) {
+    return deck3;
+  }
+
+  return deck;
 }
 
 exports.CardModel = CardModel;
 exports.Decklist = Decklist;
 exports.MTGO = MTGO;
+exports.MtgifyDecklist = MtgifyDecklist;
 exports.autoParse = autoParse;
 exports["default"] = autoParse;
 exports.parseString = parseString;

@@ -233,6 +233,7 @@ Object {
     },
   ],
   "valid": true,
+  Symbol(DecklistType): "mtgo",
 }
 `;
 
@@ -473,6 +474,7 @@ Object {
     },
   ],
   "valid": true,
+  Symbol(DecklistType): "mtga",
 }
 `;
 
@@ -1217,6 +1219,7 @@ Object {
   ],
   "sideboard": Array [],
   "valid": true,
+  Symbol(DecklistType): "mtgo",
 }
 `;
 
@@ -1580,6 +1583,7 @@ Object {
     },
   ],
   "valid": true,
+  Symbol(DecklistType): "mtga",
 }
 `;
 
@@ -1796,6 +1800,7 @@ Object {
   ],
   "sideboard": Array [],
   "valid": true,
+  Symbol(DecklistType): "mtga",
 }
 `;
 

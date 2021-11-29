@@ -1,5 +1,7 @@
 import { CardModel } from '../cardModel';
 import { Deck } from './deck';
+import { lineSplit } from 'crlf-normalize';
+import { EnumDecklistType, SymDecklistType } from '../types';
 
 const enum SECTIONS
 {
@@ -14,15 +16,16 @@ const _deckRegex = /^deck$/i;
 const _sideboardRegex = /^sideboard$/i;
 const _commanderRegex = /^commander$/i;
 const _companionRegex = /^companion$/i;
-const _newlineRegex = /\n/g;
 
 export class Decklist extends Deck
 {
+	readonly [SymDecklistType] = EnumDecklistType.mtga as const;
+
 	constructor(rawInput: string | Uint8Array)
 	{
 		super();
 
-		let splitData = rawInput.toString().trim().split(_newlineRegex);
+		let splitData = lineSplit(rawInput.toString().trim());
 		let currentSection = SECTIONS.unstarted;
 
 		try

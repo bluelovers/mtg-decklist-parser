@@ -31,6 +31,10 @@ export interface ICardXmlObject {
 }
 export interface IDeck {
 	/**
+	 * deck name
+	 */
+	name?: string;
+	/**
 	 * An array of `CardModel` for the main deck.
 	 */
 	deck: CardModel[];
@@ -47,18 +51,28 @@ export interface IDeck {
 	 */
 	commander?: CardModel;
 }
+declare const SymDecklistType: unique symbol;
+export declare const enum EnumDecklistType {
+	mtgo = "mtgo",
+	mtga = "mtga",
+	mtgify = "mtgify"
+}
 export declare class CardModel implements ICard {
 	name: string;
 	amount: number;
 	set?: string;
 	collectors?: number;
 	mtgoID?: string;
-	constructor(rawInput: string | ICardXmlObject);
+	constructor(rawInput: string | ICardXmlObject | ICard);
 	protected parseString(rawInput: string): ICard;
-	protected parseObject(rawInputObject: ICardXmlObject): ICard;
+	protected parseObject<T extends ICardXmlObject | ICard>(rawInputObject: T): ICard;
 	toCardString(): string;
 }
 declare abstract class Deck implements IDeck {
+	/**
+	 * deck name
+	 */
+	name?: string;
 	/**
 	 * If the parsing of the decklist was successful. Note: this does not necessarily mean the input was well formed.
 	 */
@@ -82,10 +96,16 @@ declare abstract class Deck implements IDeck {
 	toDeckListString(): string;
 }
 export declare class Decklist extends Deck {
+	readonly [SymDecklistType]: EnumDecklistType.mtga;
 	constructor(rawInput: string | Uint8Array);
 }
 export declare class MTGO extends Deck {
+	readonly [SymDecklistType]: EnumDecklistType.mtgo;
 	constructor(xml: string | Uint8Array, logError?: boolean);
+}
+export declare class MtgifyDecklist extends Deck {
+	readonly [SymDecklistType]: EnumDecklistType.mtgify;
+	constructor(rawInput: string | Uint8Array);
 }
 export declare function parseString(rawInput: string): ICard;
 /**
@@ -99,7 +119,7 @@ export declare function toCardString(card: ICard): string;
  */
 export declare function toCardStringWithoutAmount(card: ICardWithoutAmount): string;
 export declare function toDeckListString(deck: IDeck): string;
-export declare function autoParse(rawInput: string | Uint8Array): MTGO | Decklist;
+export declare function autoParse(rawInput: string | Uint8Array): MTGO | Decklist | MtgifyDecklist;
 export default autoParse;
 
 export {};
