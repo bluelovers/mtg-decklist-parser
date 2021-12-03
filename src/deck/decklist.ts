@@ -1,7 +1,7 @@
 import { CardModel } from '../cardModel';
 import { AbstractDeck } from './abstractDeck';
 import { lineSplit } from 'crlf-normalize';
-import { EnumDecklistType, SymDecklistType } from '../types';
+import { EnumDecklistType, ICard, ICardXmlObject, SymDecklistType } from '../types';
 
 const enum SECTIONS
 {
@@ -95,4 +95,10 @@ export class Decklist<CARD extends CardModel = CardModel> extends AbstractDeck<C
 			}
 		}
 	}
+
+	protected override _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number)
+	{
+		return super._newCardModel(rawInput, amount)
+	}
+
 }

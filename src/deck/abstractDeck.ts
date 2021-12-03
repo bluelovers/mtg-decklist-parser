@@ -1,5 +1,5 @@
 import { CardModel } from '../cardModel';
-import { ICard, ICardXmlObject, IDeck } from '../types';
+import { IDeck } from '../types';
 import { toDeckListString } from '../util';
 
 export abstract class AbstractDeck<CARD extends CardModel = CardModel> implements IDeck<CARD>
@@ -40,9 +40,13 @@ export abstract class AbstractDeck<CARD extends CardModel = CardModel> implement
 		return toDeckListString(this);
 	}
 
-	protected _newCardModel(rawInput: string | ICardXmlObject | ICard)
+	protected _newCardModel(rawInput: any, amount?: number)
 	{
-		return new CardModel(rawInput) as CARD
+		const card = new CardModel(rawInput) as CARD
+
+		card.amount = amount ?? card.amount;
+
+		return card
 	}
 
 }

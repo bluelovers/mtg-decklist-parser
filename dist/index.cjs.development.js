@@ -159,8 +159,10 @@ class AbstractDeck {
     return toDeckListString(this);
   }
 
-  _newCardModel(rawInput) {
-    return new CardModel(rawInput);
+  _newCardModel(rawInput, amount) {
+    const card = new CardModel(rawInput);
+    card.amount = amount !== null && amount !== void 0 ? amount : card.amount;
+    return card;
   }
 
 }
@@ -249,6 +251,10 @@ class Decklist extends AbstractDeck {
     }
   }
 
+  _newCardModel(rawInput, amount) {
+    return super._newCardModel(rawInput, amount);
+  }
+
 }
 
 const _commanderAnnotation = '16777728';
@@ -283,6 +289,10 @@ class MTGO extends AbstractDeck {
     }
   }
 
+  _newCardModel(rawInput, amount) {
+    return super._newCardModel(rawInput, amount);
+  }
+
 }
 
 class MtgifyDecklist extends AbstractDeck {
@@ -313,6 +323,10 @@ class MtgifyDecklist extends AbstractDeck {
         console.error(error);
       }
     }
+  }
+
+  _newCardModel(rawInput, amount) {
+    return super._newCardModel(rawInput, amount);
   }
 
 }

@@ -95,19 +95,22 @@ export declare abstract class AbstractDeck<CARD extends CardModel = CardModel> i
 	commander?: CARD;
 	protected constructor();
 	toDeckListString(): string;
-	protected _newCardModel(rawInput: string | ICardXmlObject | ICard): CARD;
+	protected _newCardModel(rawInput: any, amount?: number): CARD;
 }
 export declare class Decklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtga;
 	constructor(rawInput: string | Uint8Array, logError?: boolean);
+	protected _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number): CARD;
 }
 export declare class MTGO<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtgo;
 	constructor(xml: string | Uint8Array, logError?: boolean);
+	protected _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number): CARD;
 }
 export declare class MtgifyDecklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtgify;
 	constructor(rawInput: string | Uint8Array, logError?: boolean);
+	protected _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number): CARD;
 }
 export declare function parseString(rawInput: string): ICard;
 /**

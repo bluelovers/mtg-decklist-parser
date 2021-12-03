@@ -1,7 +1,7 @@
 import { parse, validate, ValidationError } from 'fast-xml-parser';
 import { CardModel } from '../cardModel';
 import { AbstractDeck } from './abstractDeck';
-import { EnumDecklistType, ICardXmlObject, SymDecklistType } from '../types';
+import { EnumDecklistType, ICard, ICardXmlObject, SymDecklistType } from '../types';
 
 const _commanderAnnotation = '16777728';
 
@@ -57,4 +57,10 @@ export class MTGO<CARD extends CardModel = CardModel> extends AbstractDeck<CARD>
 			console.error((output as ValidationError).err);
 		}
 	}
+
+	protected override _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number)
+	{
+		return super._newCardModel(rawInput, amount)
+	}
+
 }

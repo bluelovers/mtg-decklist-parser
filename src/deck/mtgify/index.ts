@@ -1,7 +1,7 @@
 import { AbstractDeck } from '../abstractDeck';
 import { lineSplit } from 'crlf-normalize';
 import { CardModel } from '../../cardModel';
-import { EnumDecklistType, SymDecklistType } from '../../types';
+import { EnumDecklistType, ICard, ICardXmlObject, SymDecklistType } from '../../types';
 
 export class MtgifyDecklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD>
 {
@@ -43,6 +43,11 @@ export class MtgifyDecklist<CARD extends CardModel = CardModel> extends Abstract
 			}
 		}
 
+	}
+
+	protected override _newCardModel(rawInput: string | ICardXmlObject | ICard, amount?: number)
+	{
+		return super._newCardModel(rawInput, amount)
 	}
 
 }
