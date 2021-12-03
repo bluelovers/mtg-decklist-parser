@@ -2,7 +2,7 @@ import { ICard, ICardWithoutAmount, IDeck } from './types';
 
 //const _amountRegex = /^\d+/;
 const _collectorRegex = /\d+$/;
-const _setRegex = /(\(|\[)(.+)(\)|\])/;
+const _setRegex = /(\(|\[)([a-z].+)(\)|\])/i;
 
 export function parseString(rawInput: string): ICard
 {
@@ -16,15 +16,15 @@ export function parseString(rawInput: string): ICard
 
 		const name = rawInput.slice(m_amount[0].length).replace(_setRegex, '').replace(_collectorRegex, '').trim();
 
-		const set = rawInput.match(_setRegex);
-		const collectors = rawInput.match(_collectorRegex);
+		const set = rawInput.match(_setRegex)?.[2];
+		const collectors = rawInput.match(_collectorRegex)?.[0];
 
 		return {
 			name,
 			amount,
 			// set code will be in second matched group
-			set: set ? set[2] : undefined,
-			collectors: collectors ? parseInt(collectors[0]) : undefined,
+			set,
+			collectors: (set && collectors) ? parseInt(collectors) : undefined,
 		}
 	}
 
@@ -40,6 +40,14 @@ export function toCardString(card: ICard)
 	return [
 		card.amount || 1,
 		toCardStringWithoutAmount(card),
+	].filter(s => s ?? false).join(' ')
+}
+
+export function toMtgifyCardString(card: ICard)
+{
+	return [
+		(card.amount || 1) + 'x',
+		card.name,
 	].filter(s => s ?? false).join(' ')
 }
 

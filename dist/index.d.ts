@@ -29,7 +29,7 @@ export interface ICardXmlObject {
 	Name: string;
 	CatID: string;
 }
-export interface IDeck {
+export interface IDeck<CARD extends CardModel = CardModel> {
 	/**
 	 * deck name
 	 */
@@ -37,21 +37,21 @@ export interface IDeck {
 	/**
 	 * An array of `CardModel` for the main deck.
 	 */
-	deck: CardModel[];
+	deck: CARD[];
 	/**
 	 * An array of `CardModel` for the sideboard.
 	 */
-	sideboard: CardModel[];
+	sideboard: CARD[];
 	/**
 	 * If a companion is specified in the input will be available, otherwise null.
 	 */
-	companion?: CardModel;
+	companion?: CARD;
 	/**
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
-	commander?: CardModel;
+	commander?: CARD;
 }
-declare const SymDecklistType: unique symbol;
+export declare const SymDecklistType: unique symbol;
 export declare const enum EnumDecklistType {
 	mtgo = "mtgo",
 	mtga = "mtga",
@@ -68,7 +68,7 @@ export declare class CardModel implements ICard {
 	protected parseObject<T extends ICardXmlObject | ICard>(rawInputObject: T): ICard;
 	toCardString(): string;
 }
-declare abstract class Deck implements IDeck {
+export declare abstract class AbstractDeck<CARD extends CardModel = CardModel> implements IDeck<CARD> {
 	/**
 	 * deck name
 	 */
@@ -80,30 +80,32 @@ declare abstract class Deck implements IDeck {
 	/**
 	 * An array of `CardModel` for the main deck.
 	 */
-	deck: CardModel[];
+	deck: CARD[];
 	/**
 	 * An array of `CardModel` for the sideboard.
 	 */
-	sideboard: CardModel[];
+	sideboard: CARD[];
 	/**
 	 * If a companion is specified in the input will be available, otherwise null.
 	 */
-	companion?: CardModel;
+	companion?: CARD;
 	/**
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
-	commander?: CardModel;
+	commander?: CARD;
+	protected constructor();
 	toDeckListString(): string;
+	protected _newCardModel(rawInput: string | ICardXmlObject | ICard): CARD;
 }
-export declare class Decklist extends Deck {
+export declare class Decklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtga;
 	constructor(rawInput: string | Uint8Array, logError?: boolean);
 }
-export declare class MTGO extends Deck {
+export declare class MTGO<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtgo;
 	constructor(xml: string | Uint8Array, logError?: boolean);
 }
-export declare class MtgifyDecklist extends Deck {
+export declare class MtgifyDecklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD> {
 	readonly [SymDecklistType]: EnumDecklistType.mtgify;
 	constructor(rawInput: string | Uint8Array, logError?: boolean);
 }
@@ -113,6 +115,7 @@ export declare function parseString(rawInput: string): ICard;
  * @example 2 Trelasarra, Moon Dancer (AFR) 236
  */
 export declare function toCardString(card: ICard): string;
+export declare function toMtgifyCardString(card: ICard): string;
 /**
  * NAME (SET) COLLECTORS
  * @example Trelasarra, Moon Dancer (AFR) 236

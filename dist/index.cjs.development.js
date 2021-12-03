@@ -21,21 +21,23 @@ function _defineProperty(obj, key, value) {
 }
 
 const _collectorRegex = /\d+$/;
-const _setRegex = /(\(|\[)(.+)(\)|\])/;
+const _setRegex = /(\(|\[)([a-z].+)(\)|\])/i;
 function parseString(rawInput) {
   rawInput = rawInput.trim();
   let m_amount = rawInput.match(/^(\d+)x?\s+/);
 
   if (m_amount) {
+    var _rawInput$match, _rawInput$match2;
+
     const amount = parseInt(m_amount[1]);
     const name = rawInput.slice(m_amount[0].length).replace(_setRegex, '').replace(_collectorRegex, '').trim();
-    const set = rawInput.match(_setRegex);
-    const collectors = rawInput.match(_collectorRegex);
+    const set = (_rawInput$match = rawInput.match(_setRegex)) === null || _rawInput$match === void 0 ? void 0 : _rawInput$match[2];
+    const collectors = (_rawInput$match2 = rawInput.match(_collectorRegex)) === null || _rawInput$match2 === void 0 ? void 0 : _rawInput$match2[0];
     return {
       name,
       amount,
-      set: set ? set[2] : undefined,
-      collectors: collectors ? parseInt(collectors[0]) : undefined
+      set,
+      collectors: set && collectors ? parseInt(collectors) : undefined
     };
   }
 
@@ -43,6 +45,9 @@ function parseString(rawInput) {
 }
 function toCardString(card) {
   return [card.amount || 1, toCardStringWithoutAmount(card)].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
+}
+function toMtgifyCardString(card) {
+  return [(card.amount || 1) + 'x', card.name].filter(s => s !== null && s !== void 0 ? s : false).join(' ');
 }
 function toCardStringWithoutAmount(card) {
   var _card$set;
@@ -135,7 +140,7 @@ class CardModel {
 
 }
 
-class Deck {
+class AbstractDeck {
   constructor() {
     _defineProperty(this, "valid", false);
 
@@ -146,10 +151,16 @@ class Deck {
     _defineProperty(this, "companion", null);
 
     _defineProperty(this, "commander", null);
+
+    this.valid = false;
   }
 
   toDeckListString() {
     return toDeckListString(this);
+  }
+
+  _newCardModel(rawInput) {
+    return new CardModel(rawInput);
   }
 
 }
@@ -176,7 +187,7 @@ const _deckRegex = /^deck$/i;
 const _sideboardRegex = /^sideboard$/i;
 const _commanderRegex = /^commander$/i;
 const _companionRegex = /^companion$/i;
-class Decklist extends Deck {
+class Decklist extends AbstractDeck {
   constructor(rawInput, logError = true) {
     super();
 
@@ -207,25 +218,28 @@ class Decklist extends Deck {
           return;
         }
 
+        let card = this._newCardModel(line);
+
         switch (currentSection) {
           case 1:
-            this.commander = new CardModel(line);
+            this.commander = card;
             break;
 
           case 2:
-            this.companion = new CardModel(line);
+            this.companion = card;
             break;
 
           case 3:
-            this.deck.push(new CardModel(line));
+            this.deck.push(card);
             break;
 
           case 4:
-            this.sideboard.push(new CardModel(line));
+            this.sideboard.push(card);
             break;
         }
+
+        this.valid = true;
       });
-      this.valid = true;
     } catch (error) {
       this.valid = false;
 
@@ -238,7 +252,7 @@ class Decklist extends Deck {
 }
 
 const _commanderAnnotation = '16777728';
-class MTGO extends Deck {
+class MTGO extends AbstractDeck {
   constructor(xml, logError = true) {
     super();
 
@@ -254,12 +268,14 @@ class MTGO extends Deck {
         ignoreAttributes: false
       });
       parsed.Deck.Cards.forEach(card => {
+        let cm = this._newCardModel(card);
+
         if (card.Annotation === _commanderAnnotation) {
-          this.commander = new CardModel(card);
+          this.commander = cm;
         } else if (card.Sideboard === 'true') {
-          this.sideboard.push(new CardModel(card));
+          this.sideboard.push(cm);
         } else {
-          this.deck.push(new CardModel(card));
+          this.deck.push(cm);
         }
       });
     } else if (logError) {
@@ -269,7 +285,7 @@ class MTGO extends Deck {
 
 }
 
-class MtgifyDecklist extends Deck {
+class MtgifyDecklist extends AbstractDeck {
   constructor(rawInput, logError = true) {
     super();
 
@@ -286,7 +302,7 @@ class MtgifyDecklist extends Deck {
         let _m = line.match(/^(\d+)x\s+(.+)$/);
 
         if (_m !== null && _m !== void 0 && (_m$ = _m[1]) !== null && _m$ !== void 0 && _m$.length) {
-          this.deck.push(new CardModel(line));
+          this.deck.push(this._newCardModel(line));
         }
       });
       this.valid = this.deck.length > 0;
@@ -323,14 +339,17 @@ function autoParse(rawInput) {
   return deck;
 }
 
+exports.AbstractDeck = AbstractDeck;
 exports.CardModel = CardModel;
 exports.Decklist = Decklist;
 exports.MTGO = MTGO;
 exports.MtgifyDecklist = MtgifyDecklist;
+exports.SymDecklistType = SymDecklistType;
 exports.autoParse = autoParse;
 exports["default"] = autoParse;
 exports.parseString = parseString;
 exports.toCardString = toCardString;
 exports.toCardStringWithoutAmount = toCardStringWithoutAmount;
 exports.toDeckListString = toDeckListString;
+exports.toMtgifyCardString = toMtgifyCardString;
 //# sourceMappingURL=index.cjs.development.js.map

@@ -35,7 +35,7 @@ export interface ICardXmlObject
 	CatID: string,
 }
 
-export interface IDeck
+export interface IDeck<CARD extends CardModel = CardModel>
 {
 	/**
 	 * deck name
@@ -45,19 +45,19 @@ export interface IDeck
 	/**
 	 * An array of `CardModel` for the main deck.
 	 */
-	deck: CardModel[];
+	deck: CARD[];
 	/**
 	 * An array of `CardModel` for the sideboard.
 	 */
-	sideboard: CardModel[];
+	sideboard: CARD[];
 	/**
 	 * If a companion is specified in the input will be available, otherwise null.
 	 */
-	companion?: CardModel;
+	companion?: CARD;
 	/**
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
-	commander?: CardModel;
+	commander?: CARD;
 }
 
 export const SymDecklistType = Symbol.for(`DecklistType`)

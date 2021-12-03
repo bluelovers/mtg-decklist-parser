@@ -1,9 +1,9 @@
-import { Deck } from '../deck';
+import { AbstractDeck } from '../abstractDeck';
 import { lineSplit } from 'crlf-normalize';
 import { CardModel } from '../../cardModel';
 import { EnumDecklistType, SymDecklistType } from '../../types';
 
-export class MtgifyDecklist extends Deck
+export class MtgifyDecklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD>
 {
 	readonly [SymDecklistType] = EnumDecklistType.mtgify as const;
 
@@ -26,7 +26,7 @@ export class MtgifyDecklist extends Deck
 
 				if (_m?.[1]?.length)
 				{
-					this.deck.push(new CardModel(line));
+					this.deck.push(this._newCardModel(line));
 				}
 			});
 

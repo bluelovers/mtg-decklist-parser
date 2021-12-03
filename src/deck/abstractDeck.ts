@@ -1,8 +1,8 @@
 import { CardModel } from '../cardModel';
-import { IDeck } from '../types';
+import { ICard, ICardXmlObject, IDeck } from '../types';
 import { toDeckListString } from '../util';
 
-export abstract class Deck implements IDeck
+export abstract class AbstractDeck<CARD extends CardModel = CardModel> implements IDeck<CARD>
 {
 	/**
 	 * deck name
@@ -16,23 +16,33 @@ export abstract class Deck implements IDeck
 	/**
 	 * An array of `CardModel` for the main deck.
 	 */
-	deck: CardModel[] = [];
+	deck: CARD[] = [];
 	/**
 	 * An array of `CardModel` for the sideboard.
 	 */
-	sideboard: CardModel[] = [];
+	sideboard: CARD[] = [];
 	/**
 	 * If a companion is specified in the input will be available, otherwise null.
 	 */
-	companion?: CardModel = null;
+	companion?: CARD = null;
 	/**
 	 * If a commander is specified in the input will be available, otherwise null.
 	 */
-	commander?: CardModel = null;
+	commander?: CARD = null;
+
+	protected constructor()
+	{
+		this.valid = false;
+	}
 
 	toDeckListString()
 	{
 		return toDeckListString(this);
+	}
+
+	protected _newCardModel(rawInput: string | ICardXmlObject | ICard)
+	{
+		return new CardModel(rawInput) as CARD
 	}
 
 }

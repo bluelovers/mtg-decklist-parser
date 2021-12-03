@@ -1,5 +1,5 @@
 import { CardModel } from '../cardModel';
-import { Deck } from './deck';
+import { AbstractDeck } from './abstractDeck';
 import { lineSplit } from 'crlf-normalize';
 import { EnumDecklistType, SymDecklistType } from '../types';
 
@@ -17,7 +17,7 @@ const _sideboardRegex = /^sideboard$/i;
 const _commanderRegex = /^commander$/i;
 const _companionRegex = /^companion$/i;
 
-export class Decklist extends Deck
+export class Decklist<CARD extends CardModel = CardModel> extends AbstractDeck<CARD>
 {
 	readonly [SymDecklistType] = EnumDecklistType.mtga as const;
 
@@ -63,25 +63,27 @@ export class Decklist extends Deck
 					return;
 				}
 
+				let card = this._newCardModel(line);
+
 				switch (currentSection)
 				{
 					case SECTIONS.commander:
-						this.commander = new CardModel(line);
+						this.commander = card;
 						break;
 					case SECTIONS.companion:
-						this.companion = new CardModel(line);
+						this.companion = card;
 						break;
 					case SECTIONS.deck:
-						this.deck.push(new CardModel(line));
+						this.deck.push(card);
 						break;
 					case SECTIONS.sideboard:
-						this.sideboard.push(new CardModel(line));
+						this.sideboard.push(card);
 						break;
 				}
-			});
 
-			// @ts-ignore
-			this.valid = true;
+				// @ts-ignore
+				this.valid = true;
+			});
 		}
 		catch (error)
 		{

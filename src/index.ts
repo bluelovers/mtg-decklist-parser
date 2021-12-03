@@ -1,9 +1,20 @@
 import { Decklist } from './deck/decklist';
 import { MTGO } from './deck/mtgo';
 import { MtgifyDecklist } from './deck/mtgify/index';
+import { SymDecklistType } from './types';
+import { AbstractDeck } from './deck/abstractDeck';
 
 export { CardModel } from './cardModel';
-export { parseString, toCardString, toDeckListString, toCardStringWithoutAmount } from './util';
+
+export {
+	parseString,
+	toCardString,
+	toDeckListString,
+	toCardStringWithoutAmount,
+	toMtgifyCardString,
+} from './util';
+
+export { SymDecklistType, AbstractDeck }
 
 export { Decklist, MTGO, MtgifyDecklist };
 

@@ -1,11 +1,11 @@
 import { parse, validate, ValidationError } from 'fast-xml-parser';
 import { CardModel } from '../cardModel';
-import { Deck } from './deck';
+import { AbstractDeck } from './abstractDeck';
 import { EnumDecklistType, ICardXmlObject, SymDecklistType } from '../types';
 
 const _commanderAnnotation = '16777728';
 
-export class MTGO extends Deck
+export class MTGO<CARD extends CardModel = CardModel> extends AbstractDeck<CARD>
 {
 	readonly [SymDecklistType] = EnumDecklistType.mtgo as const;
 
@@ -36,17 +36,19 @@ export class MTGO extends Deck
 
 			parsed.Deck.Cards.forEach(card =>
 			{
+				let cm = this._newCardModel(card);
+
 				if (card.Annotation === _commanderAnnotation)
 				{
-					this.commander = new CardModel(card);
+					this.commander = cm;
 				}
 				else if (card.Sideboard === 'true')
 				{
-					this.sideboard.push(new CardModel(card));
+					this.sideboard.push(cm);
 				}
 				else
 				{
-					this.deck.push(new CardModel(card));
+					this.deck.push(cm);
 				}
 			});
 		}
