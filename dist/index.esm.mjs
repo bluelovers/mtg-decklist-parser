@@ -350,4 +350,4 @@ function autoParse(rawInput) {
 }
 
 export { AbstractDeck, CardModel, Decklist, MTGO, MtgifyDecklist, SymDecklistType, autoParse, autoParse as default, parseString, toCardString, toCardStringWithoutAmount, toDeckListString, toMtgifyCardString };
-//# sourceMappingURL=index.esm.js.map
+//# sourceMappingURL=index.esm.mjs.map

@@ -6,7 +6,9 @@
     "mtg",
     "magic the gathering",
     "decklist",
-    "parser"
+    "parser",
+    "create-by-yarn-tool",
+    "create-by-tsdx"
   ],
   "homepage": "https://github.com/bluelovers/mtg-decklist-parser#readme",
   "bugs": {
@@ -18,8 +20,15 @@
   },
   "license": "MIT",
   "author": "Alex Craig",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.mjs",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "directories": {
@@ -29,7 +38,9 @@
   "scripts": {
     "test": "tsdx test --passWithNoTests",
     "posttest": "yarn run build",
-    "build": "tsdx build --target node --name index",
+    "build": "yarn run build:tsdx && yarn run build:dts",
+    "build:dts": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner & echo build:dts",
+    "build:tsdx": "ynpx @bluelovers/tsdx build --target node --name index",
     "postbuild": "ynpx dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "npm:publish": "npm publish",
     "npm:publish:bump": "yarn run version:bump && npm publish",
@@ -54,16 +65,16 @@
   },
   "dependencies": {
     "crlf-normalize": "^1.0.6",
-    "fast-xml-parser": "^3.19.0",
+    "fast-xml-parser": "^3.21.1",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@bluelovers/fast-glob": "^3.0.4",
-    "@bluelovers/tsconfig": "^1.0.26",
+    "@bluelovers/tsconfig": "^1.0.28",
     "@types/bluebird": "^3.5.36",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.9",
+    "@types/node": "^16.11.11",
     "bluebird": "^3.7.2",
     "fs-extra": "^10.0.0"
   },

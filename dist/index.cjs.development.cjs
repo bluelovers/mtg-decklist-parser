@@ -366,4 +366,4 @@ exports.toCardString = toCardString;
 exports.toCardStringWithoutAmount = toCardStringWithoutAmount;
 exports.toDeckListString = toDeckListString;
 exports.toMtgifyCardString = toMtgifyCardString;
-//# sourceMappingURL=index.cjs.development.js.map
+//# sourceMappingURL=index.cjs.development.cjs.map
