@@ -17,6 +17,7 @@ export interface ICardWithoutAmount {
 	 * The ID of the card specific to MTG Online.
 	 */
 	mtgoID?: string;
+	multiverseid?: string;
 }
 export interface ICard extends ICardWithoutAmount {
 	/**
