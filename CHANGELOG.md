@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.13](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.12...mtg-decklist-parser2@2.0.13) (2021-12-26)
+
+
+### 🛠　Build System
+
+* update tsdx ([742b658](https://github.com/bluelovers/mtg-decklist-parser/commit/742b658097daa2f7011a2d979bc753a3f8144509))
+
+
+
+
+
 ## [2.0.12](https://github.com/bluelovers/mtg-decklist-parser/compare/mtg-decklist-parser2@2.0.11...mtg-decklist-parser2@2.0.12) (2021-12-07)
 
 
